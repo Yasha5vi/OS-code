@@ -1,37 +1,36 @@
 #include<stdio.h>
-#include<stdlib.h>
 #include<unistd.h>
-#include<string.h>
+#include<stdlib.h>
 #include<sys/types.h>
 #include<sys/wait.h>
-#define max 20
 
 int main(){
     pid_t pid;
-    int a[max],n,sum=0,i,status;
-    printf("\n Enter the no of terms in the array : ");
+    int ar[20],n,sum = 0,status;
+    printf("Enter the number of elements : ");
     scanf("%d",&n);
-    printf("\nEnter values in the array : ");
+    printf("Enter the elements in the array : ");
+    // ar = {1,2,3,4,5,6};
     for(int i=0;i<n;i++){
-        scanf("%d",&a[i]);
-        pid = fork();
-        wait(&status);
-        if(pid == 0){
-            for(int j=0;j<n;j++){
-                if(a[i]%2 == 0){
-                    sum+=a[i];
-                }
-                printf("Sum of even nos = %d\n",sum);
-            }
-            exit(0);
-        }else{
-            for(int j=0;j<n;j++){
-                if(a[i]&1){
-                    sum+=a[i];
-                }
-                printf("Sum of odd nos = %d\n",sum);
+        scanf("%d",&ar[i]);
+    }
+    pid = fork();
+    wait(&status);
+    if(pid == 0){
+        for(int i=0;i<n;i++){
+            if(ar[i]%2 == 0){
+                sum+=ar[i];
             }
         }
+        printf("Sum of even no is : %d",sum);
+        exit(0);
+    }else{
+        for(int i=0;i<n;i++){
+            if(ar[i]%2 != 0){
+                sum+=ar[i];
+            }
+        }
+        printf("Sum of odd no is : %d",sum);
     }
     return 0;
 }
